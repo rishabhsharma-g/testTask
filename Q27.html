@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q27 - Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar bg-success navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">Dashboard</a>
+      <span class="text-white">Welcome, Admin</span>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <aside class="col-md-2 bg-dark p-3">
+        <h6 class="text-warning mb-3">Menu</h6>
+        <div class="d-grid gap-2">
+          <a href="#" class="btn btn-success text-start">Dashboard</a>
+          <a href="#" class="btn btn-dark text-white text-start">Users</a>
+          <a href="#" class="btn btn-dark text-white text-start">Products</a>
+          <a href="#" class="btn btn-dark text-white text-start">Orders</a>
+          <a href="#" class="btn btn-dark text-white text-start">Settings</a>
+        </div>
+      </aside>
+
+      <main class="col-md-10 p-4">
+        <h5 class="fw-bold mb-4">Dashboard Overview</h5>
+
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-success p-3 text-center">
+              <h6>Total Users</h6><h3 class="fw-bold">1,250</h3>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-warning p-3 text-center">
+              <h6>Products</h6><h3 class="fw-bold">350</h3>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-danger p-3 text-center">
+              <h6>Orders</h6><h3 class="fw-bold">890</h3>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-dark p-3 text-center">
+              <h6>Revenue</h6><h3 class="fw-bold">$25,400</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-3">
+          <h6 class="fw-bold mb-3">Recent Orders</h6>
+          <table class="table table-hover text-center">
+            <thead class="table-success">
+              <tr><th>#</th><th>Customer</th><th>Product</th><th>Status</th><th>Amount</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Rishabh</td><td>Laptop</td><td><span class="badge bg-success">Completed</span></td><td>$800</td></tr>
+              <tr><td>2</td><td>Ayush</td><td>Phone</td><td><span class="badge bg-warning text-dark">Pending</span></td><td>$500</td></tr>
+              <tr><td>3</td><td>Umesh</td><td>Headphones</td><td><span class="badge bg-danger">Cancelled</span></td><td>$150</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+</body>
+</html>

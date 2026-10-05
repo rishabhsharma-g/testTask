@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    border: border-box ;
+
+}
+
+.navbar{
+      
+        position: sticky;
+        top: 0;
+        height: 60px;
+        background-color: #26d3d3;
+        box-shadow: 0 2px 5px rgb(213, 236, 5);
+        padding: 15px;
+    
+}
+
+a{
+    margin-right: 200px;
+    text-decoration: none;
+    color: red;
+}
+

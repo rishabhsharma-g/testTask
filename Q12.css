@@ -1,0 +1,38 @@
+
+
+button{
+    height: 50px;
+    width: 100px;
+    background-color: blue;
+    color: white;
+    transition:0.5s ;
+}
+
+button:hover {
+    background-color: aqua;
+    color: rebeccapurple;
+}
+
+.card1{
+    height: 300px;
+    width: 200px;
+    background-color: rgb(221, 134, 28);
+    transition:0.5s ;
+}
+
+.card1:hover {
+    background-color: chartreuse;
+    
+}
+
+.card2{
+    height: 200px;
+    width: 300px;
+    background-color: rgb(173, 106, 235);
+    transition:0.5s ;
+
+}
+.card2:hover {
+    background-color: crimson;
+    
+}

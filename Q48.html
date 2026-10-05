@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q48 - Prime Checker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow text-center" style="width:400px">
+    <h4 class="mb-4">Prime Number Checker</h4>
+
+    <div class="input-group mb-3">
+      <input type="number" id="num" class="form-control text-center" placeholder="Enter a number" min="1">
+      <button class="btn btn-primary" onclick="check()">Check</button>
+    </div>
+
+    <div id="result" class="mb-3"></div>
+
+    <p class="fw-bold mb-2">First 10 Prime Numbers:</p>
+    <div id="primeList" class="d-flex flex-wrap gap-1 justify-content-center"></div>
+  </div>
+
+  <script>
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) if (n % i === 0) return false;
+      return true;
+    }
+
+    function check() {
+      const n = parseInt(document.getElementById("num").value);
+      if (isNaN(n) || n < 1) return;
+      const res = document.getElementById("result");
+      res.innerHTML = isPrime(n)
+        ? `<div class="alert alert-success">✅ <strong>${n}</strong> is a Prime Number!</div>`
+        : `<div class="alert alert-danger">❌ <strong>${n}</strong> is NOT a Prime Number.</div>`;
+    }
+
+    // First 10 primes
+    const primes = [];
+    for (let i = 2; primes.length < 10; i++) if (isPrime(i)) primes.push(i);
+    document.getElementById("primeList").innerHTML =
+      primes.map(p => `<span class="badge bg-primary">${p}</span>`).join("");
+
+    document.getElementById("num").addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  </script>
+
+</body>
+</html>

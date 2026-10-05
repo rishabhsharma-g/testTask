@@ -1,0 +1,21 @@
+        :root {
+            --bg: white;
+            --text: black;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            text-align: center;
+            padding: 50px;
+        }
+
+        .dark {
+            --bg: #222;
+            --text: white;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q57 - Tab Switching</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow" style="width:450px">
+    <h4 class="mb-3 text-center">Tab Switching Component</h4>
+
+    <!-- Tab Buttons -->
+    <div class="d-flex gap-2 mb-3">
+      <button class="btn btn-primary tab-btn" data-tab="home">Home</button>
+      <button class="btn btn-outline-primary tab-btn" data-tab="profile">Profile</button>
+      <button class="btn btn-outline-primary tab-btn" data-tab="settings">Settings</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="home" class="tab-content">
+      <h5>🏠 Home</h5>
+      <p>Welcome to the Home tab! This is your main dashboard.</p>
+    </div>
+
+    <div id="profile" class="tab-content" style="display:none">
+      <h5>👤 Profile</h5>
+      <p>Here you can view and edit your profile information.</p>
+    </div>
+
+    <div id="settings" class="tab-content" style="display:none">
+      <h5>⚙️ Settings</h5>
+      <p>Manage your account settings and preferences here.</p>
+    </div>
+
+  </div>
+
+  <script>
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+
+        // Remove active from all buttons
+        document.querySelectorAll(".tab-btn").forEach(b => {
+          b.className = "btn btn-outline-primary tab-btn";
+        });
+
+        // Show selected tab
+        document.getElementById(this.dataset.tab).style.display = "";
+        this.className = "btn btn-primary tab-btn";
+      });
+    });
+  </script>
+
+</body>
+</html>

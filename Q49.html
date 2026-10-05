@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q49 - Palindrome Checker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow text-center" style="width:420px">
+    <h4 class="mb-2">Palindrome Checker</h4>
+    <p class="text-muted small mb-4">A palindrome reads the same forwards and backwards.</p>
+
+    <input type="text" id="inp" class="form-control text-center mb-3" placeholder="Enter a word or sentence">
+
+    <div id="result" class="mb-3"></div>
+
+    <p class="fw-bold mb-2">Examples:</p>
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <span class="badge bg-success" style="cursor:pointer" onclick="setExample('racecar')">racecar</span>
+      <span class="badge bg-success" style="cursor:pointer" onclick="setExample('madam')">madam</span>
+      <span class="badge bg-success" style="cursor:pointer" onclick="setExample('level')">level</span>
+      <span class="badge bg-danger"  style="cursor:pointer" onclick="setExample('hello')">hello</span>
+      <span class="badge bg-danger"  style="cursor:pointer" onclick="setExample('world')">world</span>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("inp").addEventListener("input", check);
+
+    function check() {
+      const raw = document.getElementById("inp").value;
+      const clean = raw.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const result = document.getElementById("result");
+      if (!clean) { result.innerHTML = ""; return; }
+
+      const isPalin = clean === clean.split("").reverse().join("");
+      result.innerHTML = isPalin
+        ? `<div class="alert alert-success">✅ "<strong>${raw}</strong>" is a Palindrome!</div>`
+        : `<div class="alert alert-danger">❌ "<strong>${raw}</strong>" is NOT a Palindrome.</div>`;
+    }
+
+    function setExample(word) {
+      document.getElementById("inp").value = word;
+      check();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q36 - Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .calc { width: 320px; }
+    .display {
+      width: 100%;
+      height: 60px;
+      font-size: 26px;
+      text-align: right;
+      background: #1e1e1e;
+      color: #fff;
+      border: none;
+      padding: 0 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .btn-calc {
+      height: 55px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-num  { background: #333; color: #fff; }
+    .btn-op   { background: #ff9500; color: #fff; }
+    .btn-clear{ background: #a5a5a5; color: #000; }
+    .btn-eq   { background: #ff9500; color: #fff; }
+    .btn-num:hover  { background: #555; }
+    .btn-op:hover   { background: #ffb143; }
+    .btn-clear:hover{ background: #c0c0c0; }
+  </style>
+</head>
+<body class="bg-dark d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="calc">
+    <input type="text" id="display" class="display" readonly placeholder="0">
+
+    <div class="buttons">
+      <button class="btn-calc btn-clear" onclick="clearDisplay()">C</button>
+      <button class="btn-calc btn-clear" onclick="deleteLast()">⌫</button>
+      <button class="btn-calc btn-op"    onclick="addOperator('%')">%</button>
+      <button class="btn-calc btn-op"    onclick="addOperator('/')">÷</button>
+
+      <button class="btn-calc btn-num" onclick="appendValue('7')">7</button>
+      <button class="btn-calc btn-num" onclick="appendValue('8')">8</button>
+      <button class="btn-calc btn-num" onclick="appendValue('9')">9</button>
+      <button class="btn-calc btn-op"  onclick="addOperator('*')">×</button>
+
+      <button class="btn-calc btn-num" onclick="appendValue('4')">4</button>
+      <button class="btn-calc btn-num" onclick="appendValue('5')">5</button>
+      <button class="btn-calc btn-num" onclick="appendValue('6')">6</button>
+      <button class="btn-calc btn-op"  onclick="addOperator('-')">−</button>
+
+      <button class="btn-calc btn-num" onclick="appendValue('1')">1</button>
+      <button class="btn-calc btn-num" onclick="appendValue('2')">2</button>
+      <button class="btn-calc btn-num" onclick="appendValue('3')">3</button>
+      <button class="btn-calc btn-op"  onclick="addOperator('+')">+</button>
+
+      <button class="btn-calc btn-num" onclick="appendValue('0')" style="grid-column:span 2">0</button>
+      <button class="btn-calc btn-num" onclick="appendValue('.')">.</button>
+      <button class="btn-calc btn-eq"  onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const operators = ['+', '-', '*', '/', '%'];
+
+    function appendValue(value) {
+      document.getElementById("display").value += value;
+    }
+
+    function addOperator(op) {
+      const display = document.getElementById("display");
+      const val = display.value;
+      if (val === "") return; // pehle number hona chahiye
+      const lastChar = val[val.length - 1];
+      if (operators.includes(lastChar)) {
+        // agar last character operator hai to replace karo
+        display.value = val.slice(0, -1) + op;
+      } else {
+        display.value += op;
+      }
+    }
+
+    function clearDisplay() {
+      document.getElementById("display").value = "";
+    }
+
+    function deleteLast() {
+      const display = document.getElementById("display");
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      const display = document.getElementById("display");
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>

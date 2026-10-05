@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q54 - DOM Table</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+  <div class="container" style="max-width:600px">
+    <h4 class="mb-3 text-center">DOM Table - Add & Remove Rows</h4>
+
+    <!-- Input Fields -->
+    <div class="row g-2 mb-3">
+      <div class="col">
+        <input type="text" id="nameInput" class="form-control" placeholder="Enter Name">
+      </div>
+      <div class="col">
+        <input type="text" id="cityInput" class="form-control" placeholder="Enter City">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-success" id="addBtn">Add Row</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-bordered table-striped text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr>
+          <td>1</td>
+          <td>Ali</td>
+          <td>Karachi</td>
+          <td><button class="btn btn-danger btn-sm">Remove</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Sara</td>
+          <td>Lahore</td>
+          <td><button class="btn btn-danger btn-sm">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <script>
+    // Add Row
+    document.getElementById("addBtn").addEventListener("click", function () {
+      const name = document.getElementById("nameInput").value.trim();
+      const city = document.getElementById("cityInput").value.trim();
+
+      if (!name || !city) return alert("Please enter both Name and City.");
+
+      const tbody = document.getElementById("tableBody");
+      const rowCount = tbody.rows.length + 1;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${rowCount}</td>
+        <td>${name}</td>
+        <td>${city}</td>
+        <td><button class="btn btn-danger btn-sm">Remove</button></td>`;
+      tbody.appendChild(tr);
+
+      document.getElementById("nameInput").value = "";
+      document.getElementById("cityInput").value = "";
+    });
+
+    // Remove Row - Event Delegation
+    document.getElementById("tableBody").addEventListener("click", function (e) {
+      if (e.target.classList.contains("btn-danger")) {
+        e.target.closest("tr").remove();
+        // Update serial numbers
+        document.querySelectorAll("#tableBody tr").forEach((row, i) => {
+          row.cells[0].textContent = i + 1;
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

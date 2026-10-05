@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q65 - Toast Notifications</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #toastContainer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-box {
+      min-width: 280px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(100px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div id="toastContainer"></div>
+
+  <div class="card p-4 shadow text-center" style="width:400px">
+    <h4 class="mb-4">🔔 Toast Notifications</h4>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-success"  onclick="showToast('success', '✅ Success! Operation completed.')">Success</button>
+      <button class="btn btn-danger"   onclick="showToast('danger',  '❌ Error! Something went wrong.')">Error</button>
+      <button class="btn btn-warning text-dark" onclick="showToast('warning', '⚠️ Warning! Check your input.')">Warning</button>
+      <button class="btn btn-info text-dark"    onclick="showToast('info',    'ℹ️ Info! New update available.')">Info</button>
+    </div>
+  </div>
+
+  <script>
+    function showToast(type, message) {
+      const colors = { success: "#198754", danger: "#dc3545", warning: "#ffc107", info: "#0dcaf0" };
+      const textColors = { warning: "#000", info: "#000" };
+
+      const toast = document.createElement("div");
+      toast.className = "toast-box";
+      toast.style.background = colors[type];
+      toast.style.color = textColors[type] || "#fff";
+      toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()" style="background:none;border:none;color:inherit;font-size:1.2rem;cursor:pointer">✕</button>`;
+
+      document.getElementById("toastContainer").appendChild(toast);
+
+      setTimeout(() => toast.remove(), 3000);
+    }
+  </script>
+
+</body>
+</html>

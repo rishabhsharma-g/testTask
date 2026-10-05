@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q52 - Form Validation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow" style="width:400px">
+    <h4 class="mb-3 text-center">Form Validation</h4>
+    <form id="myForm" novalidate>
+
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter name">
+        <div class="text-danger small" id="nameErr"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="text" id="email" class="form-control" placeholder="Enter email">
+        <div class="text-danger small" id="emailErr"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter password">
+        <div class="text-danger small" id="passErr"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" id="phone" class="form-control" placeholder="Enter phone number">
+        <div class="text-danger small" id="phoneErr"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <div class="text-success text-center mt-2" id="successMsg"></div>
+
+    </form>
+  </div>
+
+  <script>
+    const fields = [
+      { id: "name",     errId: "nameErr",  check: v => v.trim() === ""           ? "Name is required."          : "" },
+      { id: "email",    errId: "emailErr", check: v => !/^\S+@\S+\.\S+$/.test(v) ? "Enter a valid email."        : "" },
+      { id: "password", errId: "passErr",  check: v => v.length < 6              ? "Min 6 characters required."  : "" },
+      { id: "phone",    errId: "phoneErr", check: v => !/^\d{10}$/.test(v)       ? "Enter a valid 10-digit phone.": "" }
+    ];
+
+    // Dynamic validation on input
+    fields.forEach(f => {
+      document.getElementById(f.id).addEventListener("input", function () {
+        document.getElementById(f.errId).textContent = f.check(this.value);
+      });
+    });
+
+    // On submit
+    document.getElementById("myForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+      fields.forEach(f => {
+        const err = f.check(document.getElementById(f.id).value);
+        document.getElementById(f.errId).textContent = err;
+        if (err) valid = false;
+      });
+      document.getElementById("successMsg").textContent = valid ? "Form submitted successfully!" : "";
+    });
+  </script>
+
+</body>
+</html>

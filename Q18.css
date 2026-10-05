@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.timeline {
+    width: 600px;
+    margin: 40px auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background-color: rgb(240, 143, 143);
+    /* backdrop-filter: blur(10px); */
+    left: 20px;
+}
+
+
+ .journey {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+
+ .journey::after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background-color: blue;
+            border-radius: 30%;
+        }
+
+

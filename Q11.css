@@ -1,0 +1,21 @@
+:root{
+    --first-color: blue;
+    --second-color: red;
+    --third-color: green;
+}
+
+div{
+    height: 100px;
+    width: 100px;
+    background-color: var(--first-color);
+}
+
+body{
+    background-color: var(--third-color);
+    
+}
+
+h1{
+    background-color: var(--second-color);
+}
+

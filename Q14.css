@@ -1,0 +1,16 @@
+.pricing-container{
+   
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    
+
+}
+
+.card{
+    width: 200px;
+    padding: 20px;
+    background-color: rgb(240, 209, 35);
+    border: 1px solid black;
+    text-align: center;
+}

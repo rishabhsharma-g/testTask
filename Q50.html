@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q50 - Memory Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card-box {
+      width: 80px; height: 80px;
+      font-size: 2rem;
+      cursor: pointer;
+      background: #0d6efd;
+      color: transparent;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      user-select: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .card-box.flipped  { background: #fff; color: #000; border: 2px solid #0d6efd; }
+    .card-box.matched  { background: #198754; color: #fff; cursor: default; }
+  </style>
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow text-center" style="width:420px">
+    <h4 class="mb-1">🧠 Memory Game</h4>
+    <p class="text-muted mb-3" id="msg">Find the matching pairs!</p>
+
+    <div class="d-flex flex-wrap gap-2 justify-content-center mb-3" id="board"></div>
+
+    <div class="d-flex justify-content-between px-2 mb-3">
+      <span>Moves: <strong id="moves">0</strong></span>
+      <span>Matched: <strong id="matched">0</strong>/6</span>
+    </div>
+
+    <button class="btn btn-primary w-100" onclick="startGame()">🔄 Restart</button>
+  </div>
+
+  <script>
+    const emojis = ["🍎","🍌","🍇","🍓","🍒","🍑"];
+    let cards, flipped = [], moves = 0, matchedCount = 0, lock = false;
+
+    function startGame() {
+      cards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+      flipped = []; moves = 0; matchedCount = 0; lock = false;
+      document.getElementById("moves").textContent = 0;
+      document.getElementById("matched").textContent = 0;
+      document.getElementById("msg").textContent = "Find the matching pairs!";
+
+      const board = document.getElementById("board");
+      board.innerHTML = "";
+      cards.forEach((emoji, i) => {
+        const div = document.createElement("div");
+        div.className = "card-box";
+        div.dataset.emoji = emoji;
+        div.dataset.index = i;
+        div.textContent = emoji;
+        div.addEventListener("click", flipCard);
+        board.appendChild(div);
+      });
+    }
+
+    function flipCard() {
+      if (lock || this.classList.contains("flipped") || this.classList.contains("matched")) return;
+      this.classList.add("flipped");
+      flipped.push(this);
+
+      if (flipped.length === 2) {
+        lock = true;
+        moves++;
+        document.getElementById("moves").textContent = moves;
+
+        if (flipped[0].dataset.emoji === flipped[1].dataset.emoji) {
+          flipped.forEach(c => c.classList.replace("flipped", "matched"));
+          matchedCount++;
+          document.getElementById("matched").textContent = matchedCount;
+          if (matchedCount === emojis.length)
+            document.getElementById("msg").textContent = `🎉 You won in ${moves} moves!`;
+          flipped = []; lock = false;
+        } else {
+          setTimeout(() => {
+            flipped.forEach(c => c.classList.remove("flipped"));
+            flipped = []; lock = false;
+          }, 900);
+        }
+      }
+    }
+
+    startGame();
+  </script>
+
+</body>
+</html>

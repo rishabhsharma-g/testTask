@@ -1,0 +1,51 @@
+table {
+    border-collapse: collapse;
+    width : 80%;
+    margin : 20px auto;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+caption{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+
+thead{
+    background-color: rgb(212, 255, 255);
+    color: rgb(4, 201, 245);
+}
+tbody{
+    background-color: blanchedalmond;
+    color: rgb(24, 41, 7);
+}
+
+tfoot{
+    background-color: rgba(195, 230, 230, 0.801);
+    color: rgba(195, 230, 230, 0.801);
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+
+thead:hover{
+    background-color: greenyellow;
+    color: red;
+}
+
+tbody tr:hover{
+    background-color: aqua;
+    color: crimson;
+}
+
+tfoot :hover{
+    color: red;
+}

@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+   box-sizing: border-box;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    background-color: #3333;
+
+}
+
+nav li {
+    position:relative;
+}
+
+nav button {
+    padding: 15px 20px;
+    border: 2px;
+    background-color: aquamarine;
+    color:black;
+    cursor: pointer;
+}
+
+nav li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background-color: antiquewhite;
+    min-width: 150px;
+}
+nav li ul a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+nav li:focus-within ul {
+    display: block;
+}
+
+nav li:hover ul,
+nav li:focus-within ul {
+    display: block;
+}
+
+nav button:focus {
+    outline: 3px solid blue;
+    outline-offset: 2px;
+}
+

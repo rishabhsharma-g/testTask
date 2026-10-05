@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q55 - Live Search Filter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+  <div class="container" style="max-width:500px">
+    <h4 class="mb-3 text-center">Live Search Filter</h4>
+
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by name...">
+
+    <ul class="list-group" id="itemList">
+      <li class="list-group-item">Ali Ahmed</li>
+      <li class="list-group-item">Sara Khan</li>
+      <li class="list-group-item">Usman Raza</li>
+      <li class="list-group-item">Ayesha Malik</li>
+      <li class="list-group-item">Bilal Hussain</li>
+      <li class="list-group-item">Fatima Noor</li>
+      <li class="list-group-item">Hamza Sheikh</li>
+      <li class="list-group-item">Zara Siddiqui</li>
+    </ul>
+
+    <div class="text-muted text-center mt-2" id="noResult" style="display:none">No results found.</div>
+  </div>
+
+  <script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const items = document.querySelectorAll("#itemList li");
+      let count = 0;
+
+      items.forEach(item => {
+        const match = item.textContent.toLowerCase().includes(query);
+        item.style.display = match ? "" : "none";
+        if (match) count++;
+      });
+
+      document.getElementById("noResult").style.display = count === 0 ? "" : "none";
+    });
+  </script>
+
+</body>
+</html>

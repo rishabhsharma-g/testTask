@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Q45 - Todo List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height:100vh">
+
+  <div class="card p-4 shadow" style="width:460px">
+    <h4 class="text-center mb-4">📝 Todo List</h4>
+
+    <div class="input-group mb-3">
+      <input type="text" id="input" class="form-control" placeholder="Add a new task...">
+      <button class="btn btn-primary" onclick="addTodo()">Add</button>
+    </div>
+
+    <ul class="list-group" id="list"></ul>
+    <p class="text-muted small mt-2 text-end" id="count"></p>
+  </div>
+
+  <script>
+    let todos = [], editId = null;
+
+    function addTodo() {
+      const val = document.getElementById("input").value.trim();
+      if (!val) return;
+      if (editId !== null) {
+        todos.find(t => t.id === editId).text = val;
+        editId = null;
+      } else {
+        todos.push({ id: Date.now(), text: val, done: false });
+      }
+      document.getElementById("input").value = "";
+      render();
+    }
+
+    function render() {
+      document.getElementById("count").textContent =
+        `${todos.filter(t => !t.done).length} pending / ${todos.length} total`;
+
+      document.getElementById("list").innerHTML = todos.length === 0
+        ? '<li class="list-group-item text-center text-muted">No tasks yet.</li>'
+        : todos.map(t => `
+          <li class="list-group-item d-flex align-items-center gap-2">
+            <input type="checkbox" class="form-check-input" ${t.done ? "checked" : ""} onchange="toggle(${t.id})">
+            <span class="flex-grow-1 ${t.done ? "text-decoration-line-through text-muted" : ""}">${t.text}</span>
+            <button class="btn btn-sm btn-outline-warning" onclick="edit(${t.id})">✏️</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="remove(${t.id})">🗑</button>
+          </li>`).join("");
+    }
+
+    function toggle(id) { todos.find(t => t.id === id).done ^= true; render(); }
+    function remove(id) { todos = todos.filter(t => t.id !== id); render(); }
+    function edit(id) {
+      document.getElementById("input").value = todos.find(t => t.id === id).text;
+      editId = id;
+      document.getElementById("input").focus();
+    }
+
+    document.getElementById("input").addEventListener("keydown", e => { if (e.key === "Enter") addTodo(); });
+    render();
+  </script>
+
+</body>
+</html>
