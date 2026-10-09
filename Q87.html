@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q87 - Infinite Scroll</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-4" style="max-width: 700px;">
+
+        <h3 class="text-center mb-4">Infinite Scroll</h3>
+
+        <div id="posts"></div>
+
+        <p id="loader" class="text-center text-primary py-3">
+            Loading more posts...
+        </p>
+
+        <p id="endMsg" class="text-center text-success d-none">
+            All posts loaded!
+        </p>
+
+    </div>
+
+    <script>
+        const posts = document.getElementById("posts");
+        const loader = document.getElementById("loader");
+        const endMsg = document.getElementById("endMsg");
+
+        let postNumber = 1;
+        let loading = false;
+
+        function loadPosts() {
+
+            if (loading || postNumber > 50) return;
+
+            loading = true;
+            loader.classList.remove("d-none");
+
+            setTimeout(function () {
+
+                for (let i = 0; i < 5 && postNumber <= 50; i++) {
+
+                    posts.innerHTML += `
+                        <div class="card p-3 mb-3 shadow-sm">
+                            <h5>Post ${postNumber}</h5>
+                            <p class="mb-0">
+                                This is post number ${postNumber}.
+                                Scroll down to load more posts.
+                            </p>
+                        </div>
+                    `;
+
+                    postNumber++;
+                }
+
+                loading = false;
+
+                if (postNumber > 50) {
+                    loader.classList.add("d-none");
+                    endMsg.classList.remove("d-none");
+                }
+
+            }, 700);
+        }
+
+        window.addEventListener("scroll", function () {
+
+            if (
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 100
+            ) {
+                loadPosts();
+            }
+
+        });
+
+        loadPosts();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="Q79.css">
+</head>
+
+<body>
+    <h1>Product Store</h1> <!-- Products -->
+    <div class="products">
+        <div class="product">
+            <h2>Laptop</h2>
+            <p>₹50,000</p> <button onclick="showDetails('Laptop', 'Powerful laptop for study and work.', '₹50,000')">
+                View Details </button>
+        </div>
+        <div class="product">
+            <h2>Mobile Phone</h2>
+            <p>₹20,000</p> <button
+                onclick="showDetails('Mobile Phone', 'Smartphone with powerful camera and battery.', '₹20,000')"> View
+                Details </button>
+        </div>
+        <div class="product">
+            <h2>Headphones</h2>
+            <p>₹2,500</p> <button
+                onclick="showDetails('Headphones', 'Wireless headphones with clear sound quality.', '₹2,500')"> View
+                Details </button>
+        </div>
+    </div> <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content"> <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="productName"></h2>
+            <p id="productDescription"></p>
+            <h3 id="productPrice"></h3> <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+    <script src="Q79.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: lightblue;
+            padding: 30px;
+        }
+
+        .weather-box {
+            background: white;
+            max-width: 350px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather App 🌦️</h1>
+
+    <div class="weather-box">
+        <input type="text" id="city" placeholder="Enter city name">
+        <button onclick="getWeather()">Search</button>
+
+        <p id="message">Enter a city to check its weather.</p>
+
+        <div id="weather"></div>
+    </div>
+
+    <script src="Q84.js"></script>
+</body>
+</html>

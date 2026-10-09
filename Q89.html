@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Q89 - CRUD API</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <h2 class="text-center mb-4">CRUD API Application</h2>
+
+        <!-- User Form -->
+        <div class="card p-4 shadow-sm mb-4">
+
+            <h5 id="formTitle">Add New User</h5>
+
+            <input type="text" id="name"
+                   class="form-control mb-3"
+                   placeholder="Enter user name">
+
+            <input type="email" id="email"
+                   class="form-control mb-3"
+                   placeholder="Enter email">
+
+            <button class="btn btn-primary" onclick="saveUser()">
+                Save User
+            </button>
+
+            <button class="btn btn-secondary mt-2"
+                    onclick="resetForm()">
+                Cancel / Clear
+            </button>
+
+        </div>
+
+        <p id="message"></p>
+
+        <!-- Users List -->
+        <h4 class="mb-3">Users List</h4>
+
+        <div id="users" class="row g-3"></div>
+
+    </div>
+
+    <script>
+
+        const apiURL = "https://jsonplaceholder.typicode.com/users";
+
+        let users = [];
+        let editId = null;
+
+        const usersDiv = document.getElementById("users");
+        const message = document.getElementById("message");
+
+        // READ: Get users from API
+        async function getUsers() {
+
+            message.textContent = "Loading users...";
+
+            try {
+
+                const response = await fetch(apiURL);
+
+                if (!response.ok) {
+                    throw new Error("Unable to load users.");
+                }
+
+                users = await response.json();
+
+                displayUsers();
+
+                message.textContent = "";
+
+            } catch (error) {
+
+                message.textContent = error.message;
+                message.className = "text-danger";
+
+            }
+        }
+
+        // Display users
+        function displayUsers() {
+
+            usersDiv.innerHTML = "";
+
+            users.forEach(user => {
+
+                usersDiv.innerHTML += `
+
+                    <div class="col-md-6">
+
+                        <div class="card p-3 shadow-sm h-100">
+
+                            <h5>${user.name}</h5>
+
+                            <p class="mb-3">${user.email}</p>
+
+                            <div class="d-flex gap-2">
+
+                                <button class="btn btn-warning btn-sm"
+                                    onclick="editUser(${user.id})">
+                                    Edit
+                                </button>
+
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="deleteUser(${user.id})">
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+        }
+
+        // CREATE and UPDATE
+        async function saveUser() {
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+
+            if (name === "" || email === "") {
+                message.textContent = "Please fill all fields.";
+                message.className = "text-danger";
+                return;
+            }
+
+            const userData = {
+                name: name,
+                email: email
+            };
+
+            const isEditing = editId !== null;
+
+            const url = isEditing
+                ? `${apiURL}/${editId}`
+                : apiURL;
+
+            try {
+
+                message.textContent = "Saving...";
+
+                const response = await fetch(url, {
+                    method: isEditing ? "PUT" : "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(userData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unable to save user.");
+                }
+
+                const savedUser = await response.json();
+
+                if (isEditing) {
+
+                    users = users.map(user =>
+                        user.id === editId
+                            ? { ...user, ...savedUser, ...userData }
+                            : user
+                    );
+
+                    message.textContent = "User updated successfully!";
+
+                } else {
+
+                    users.unshift({
+                        ...savedUser,
+                        ...userData,
+                        id: savedUser.id || Date.now()
+                    });
+
+                    message.textContent = "User added successfully!";
+
+                }
+
+                message.className = "text-success";
+
+                resetForm();
+                displayUsers();
+
+            } catch (error) {
+
+                message.textContent = error.message;
+                message.className = "text-danger";
+
+            }
+        }
+
+        // Load user details into form
+        function editUser(id) {
+
+            const user = users.find(user => user.id === id);
+
+            if (!user) return;
+
+            document.getElementById("name").value = user.name;
+            document.getElementById("email").value = user.email;
+
+            document.getElementById("formTitle").textContent = "Update User";
+
+            editId = id;
+
+            message.textContent = "Editing user: " + user.name;
+            message.className = "text-primary";
+        }
+
+        // DELETE
+        async function deleteUser(id) {
+
+            if (!confirm("Are you sure you want to delete this user?")) {
+                return;
+            }
+
+            try {
+
+                const response = await fetch(`${apiURL}/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unable to delete user.");
+                }
+
+                users = users.filter(user => user.id !== id);
+
+                displayUsers();
+
+                message.textContent = "User deleted successfully!";
+                message.className = "text-success";
+
+                if (editId === id) {
+                    resetForm();
+                }
+
+            } catch (error) {
+
+                message.textContent = error.message;
+                message.className = "text-danger";
+
+            }
+        }
+
+        // Clear form
+        function resetForm() {
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+
+            document.getElementById("formTitle").textContent = "Add New User";
+
+            editId = null;
+        }
+
+        // Load users when page opens
+        getUsers();
+
+    </script>
+
+</body>
+</html>

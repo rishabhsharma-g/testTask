@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Sorting</title>
+    <link rel="stylesheet" href="Q78.css">
+</head>
+
+<body>
+    <h1>Product Store</h1> <!-- Sort Dropdown --> <select id="sortPrice" onchange="sortProducts()">
+        <option value="">Sort by Price</option>
+        <option value="low">Low to High</option>
+        <option value="high">High to Low</option>
+    </select> <!-- Products -->
+    <div class="products" id="products">
+        <div class="product" data-price="50000">
+            <h2>Laptop</h2>
+            <p>₹50,000</p>
+        </div>
+        <div class="product" data-price="800">
+            <h2>T-Shirt</h2>
+            <p>₹800</p>
+        </div>
+        <div class="product" data-price="2000">
+            <h2>Running Shoes</h2>
+            <p>₹2,000</p>
+        </div>
+        <div class="product" data-price="20000">
+            <h2>Mobile Phone</h2>
+            <p>₹20,000</p>
+        </div>
+        <div class="product" data-price="1500">
+            <h2>Jeans</h2>
+            <p>₹1,500</p>
+        </div>
+        <div class="product" data-price="2500">
+            <h2>Sports Shoes</h2>
+            <p>₹2,500</p>
+        </div>
+    </div>
+    <script src="Q78.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Loader</title>
+    <style>
+        #loader {
+            width: 40px;
+            height: 40px;
+            border: 5px solid lightgray;
+            border-top: 5px solid blue;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Users List</h1>
+
+    <div id="loader"></div>
+    <div id="users"></div>
+
+    <script src="Q82.js"></script>
+</body>
+</html>
